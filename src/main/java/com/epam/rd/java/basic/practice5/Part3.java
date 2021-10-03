@@ -8,7 +8,16 @@ public class Part3 {
 
     public static void main(final String[] args) {
 
+
     }
+
+    Thread thread = new Thread() {
+        @Override
+        public void run() {
+            System.out.println();
+
+        }
+    };
 
     public void compare() {
 
@@ -17,5 +26,4 @@ public class Part3 {
     public void compareSync() {
 
     }
-
 }
