@@ -6,35 +6,29 @@ public class Spam {
 
     private Thread[] threads;
     private String[] messages;
-    private int[] times;
-    private static boolean running = true;
+    private int[] delays;
 
     public Spam(final String[] messages, final int[] delays) {
         this.messages = messages;
-        this.times = delays;
+        this.delays = delays;
     }
 
     public static void main(final String[] args) {
         Scanner input = new Scanner(System.in);
-
-        while (running) {
+        while (!input.nextLine().equals("")) {
             Worker worker = new Worker();
             worker.run();
         }
+
     }
 
     public void start() {
 
     }
 
-    public void stop() {
-        running = false;
-    }
-
     private static class Worker extends Thread {
         String[] messages = new String[] {"a", "bb", "ccc", "dddd"};
         int[] delays = new int[] {500, 1000, 1500, 2000};
-        Spam spam = new Spam(messages, delays);
         @Override
         public void run() {
             for (int i = 0; i < messages.length; i++) {
