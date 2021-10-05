@@ -1,6 +1,8 @@
 package com.epam.rd.java.basic.practice5;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Spam {
 
@@ -14,11 +16,21 @@ public class Spam {
     }
 
     public static void main(final String[] args) {
-        Scanner input = new Scanner(System.in);
-        while (!input.nextLine().equals("")) {
-            Worker worker = new Worker();
-            worker.run();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Worker worker = new Worker();
+        Thread thread = new Thread(worker);
+        thread.start();
+        while (true) {
+            try {
+                if (reader.readLine().isEmpty()) {
+                    thread.interrupt();
+                    break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
 
     }
 
@@ -27,17 +39,20 @@ public class Spam {
     }
 
     private static class Worker extends Thread {
-        String[] messages = new String[] {"a", "bb", "ccc", "dddd"};
-        int[] delays = new int[] {500, 1000, 1500, 2000};
+
+
         @Override
         public void run() {
-            for (int i = 0; i < messages.length; i++) {
-                System.out.println(messages[i]);
+            Spam spam = new Spam(new String[] {"a", "bb", "ccc", "dddd"}, new int[] {500, 1000, 1500, 2000});
+            int i = 0;
+            while (!Thread.currentThread().isInterrupted() && i < spam.delays.length) {
                 try {
-                    sleep(delays[i]);
+                    Thread.sleep(spam.delays[i]);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println(spam.messages[i]);
+                i++;
             }
         }
     }
