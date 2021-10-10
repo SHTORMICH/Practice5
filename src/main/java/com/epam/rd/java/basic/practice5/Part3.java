@@ -17,23 +17,24 @@ public class Part3 {
         return counter2;
     }
 
-    public synchronized int incrementCounter() {
+    public int incrementCounter() {
         return counter++;
     }
 
-    public synchronized int incrementCounter2() {
+    public int incrementCounter2() {
         return counter2++;
     }
 
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws InterruptedException {
         Part3 n = new Part3(0, 0);
         n.compare();
+        Thread.sleep(100);
         n = new Part3(0, 0);
         n.compareSync();
 
     }
 
-    public void compare() {
+    public void compare() throws InterruptedException {
         Thread threadNoSync = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -50,12 +51,13 @@ public class Part3 {
             }
         });
         threadNoSync.start();
+        threadNoSync.join();
     }
 
-    public synchronized void compareSync() {
+    public void compareSync() {
         Thread threadSync = new Thread(new Runnable() {
             @Override
-            public void run() {
+            public synchronized void run() {
                     for (int i = 0; i < 10; i++) {
                         System.out.println(getCounter() + " == " + getCounter2() + " : " + (getCounter() + getCounter2()));
                         incrementCounter();
