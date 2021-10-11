@@ -12,17 +12,17 @@ public class Part4 {
     public static void main(final String[] args) {
         int[][] matrix = getRandomMatrix(N, M);
         writeToFile("part4.txt", matrix);
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
         int max = findMax(matrix);
-        long endTime = System.nanoTime();
+        long endTime = System.currentTimeMillis() - startTime;
 
-        System.out.println(max + "\n" + ((endTime - startTime) / 1000));
+        System.out.println(max + "\n" + endTime);
 
-        long startTimeMul = System.nanoTime();
+        long startTimeMul = System.currentTimeMillis();
         int maxMul = multiThreadMax(matrix);
-        long endTimeMul = System.nanoTime();
+        long endTimeMul = System.currentTimeMillis() - startTimeMul;
 
-        System.out.println(maxMul + "\n" + ((endTimeMul - startTimeMul) / 1000));
+        System.out.println(maxMul + "\n" + endTimeMul);
 
     }
 

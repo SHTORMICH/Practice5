@@ -18,7 +18,7 @@ public class Part1 {
      public void run() {
          int counter = 0;
          while (counter != 4) {
-             System.out.println("ChildThread");
+             System.out.println(ChildThread.currentThread().getName());
              counter++;
              try {
                  sleep(500);
@@ -35,7 +35,7 @@ public class Part1 {
      public void run() {
          int counter = 0;
          while (counter != 4) {
-             System.out.println("ChildRunnable");
+             System.out.println(ChildRunnable.class.getName());
              counter++;
              try {
                  Thread.sleep(500);
