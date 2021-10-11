@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Part2 {
 
-    public static void main(final String[] args) throws InterruptedException {
+    public static void main(final String[] args) {
         System.setIn(new ByteArrayInputStream(
                 "\n".getBytes(StandardCharsets.UTF_8)));
         Thread t = new Thread() {
@@ -15,7 +15,11 @@ public class Part2 {
             }
         };
         t.start();
-        t.join();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -10,20 +10,41 @@ import java.util.concurrent.*;
 
 public class Part5 {
 
-    public static void main(final String[] args) throws InterruptedException, IOException, ExecutionException {
+    public static void main(final String[] args) {
 
         ExecutorService service = Executors.newFixedThreadPool(9);
         File file = new File("part5.txt");
-        RandomAccessFile r = new RandomAccessFile(file, "rw");
+        RandomAccessFile r = null;
+        try {
+            r = new RandomAccessFile(file, "rw");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         List<Worker> tasks = new ArrayList<>();
         Worker result = new Worker();
         for (int i = 0; i < 10; i++) {
             tasks.add(result);
         }
-        List<Future<String>> text = service.invokeAll(tasks);
+        List<Future<String>> text = null;
+        try {
+            text = service.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (Future<String> line : text) {
-            String str = line.get() + "\n";
-            r.write(str.getBytes("UTF-8"));
+            String str = null;
+            try {
+                str = line.get() + "\n";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            try {
+                r.write(str.getBytes("UTF-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         service.shutdown();
     }

@@ -25,10 +25,18 @@ public class Part3 {
         return counter2++;
     }
 
-    public static void main(final String[] args) throws InterruptedException {
+    public static void main(final String[] args) {
         Part3 n = new Part3(0, 0);
-        n.compare();
-        Thread.sleep(100);
+        try {
+            n.compare();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         n = new Part3(0, 0);
         n.compareSync();
 
