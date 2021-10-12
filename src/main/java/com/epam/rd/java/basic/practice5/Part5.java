@@ -48,7 +48,6 @@ public class Part5 {
         }
         service.shutdown();
     }
-
 }
 
 class Worker implements Callable<String> {

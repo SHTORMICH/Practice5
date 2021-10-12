@@ -3,7 +3,7 @@ package com.epam.rd.java.basic.practice5;
 public class Part1 {
 
     public static void main(String[] args) {
-        ChildThread childOne = new ChildThread();
+        Thread childOne = new ChildThread();
         childOne.start();
 
         Thread childRunnable = new Thread(new ChildRunnable());
@@ -18,7 +18,7 @@ public class Part1 {
      public void run() {
          int counter = 0;
          while (counter != 4) {
-             System.out.println(ChildThread.currentThread().getName());
+             System.out.println(Thread.currentThread().getName());
              counter++;
              try {
                  sleep(500);

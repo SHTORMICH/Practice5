@@ -38,6 +38,10 @@ public class Spam {
 
     }
 
+    public void stop() {
+
+    }
+
     private static class Worker extends Thread {
 
 

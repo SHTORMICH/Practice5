@@ -43,19 +43,16 @@ public class Part3 {
     }
 
     public void compare() throws InterruptedException {
-        Thread threadNoSync = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 10; i++) {
-                    System.out.println(getCounter() + " == " + getCounter2() + " : " + (getCounter() + getCounter2()));
-                    counter++;
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    counter2++;
+        Thread threadNoSync = new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                System.out.println(getCounter() + " == " + getCounter2() + " : " + (getCounter() + getCounter2()));
+                counter++;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                counter2++;
             }
         });
         threadNoSync.start();
